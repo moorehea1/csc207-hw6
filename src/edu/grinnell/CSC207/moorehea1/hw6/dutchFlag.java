@@ -15,10 +15,14 @@ public class dutchFlag {
 	int R = 0;
 	int W = 0;
 	int B = 0;
-	// String[] flag = new String[size];
-	String[] flag = {"blue", "red", "red", "white", "red", "white", "blue"/*, "white", "white", "blue", "white"*/};
+	String[] flag = { "blue", "white", "red", "white", "red", "blue",
+		"red", "white", "blue", "white", "white", "blue", "white",
+		"red", "white", "red" };
 	int size = flag.length;
 
+	/**
+	 * Implementation 1
+	 */
 	while (R <= W && W <= B && B < size) {
 	    switch (flag[B]) {
 	    case "red":
@@ -28,28 +32,65 @@ public class dutchFlag {
 		    W++;
 		if (W > B)
 		    B++;
-		pen.println("test1");
 		break;
 	    case "white":
 		swap(flag, W, B);
 		W++;
 		if (W > B)
 		    B++;
-		pen.println("test2");
 		break;
 	    case "blue":
 		B++;
-		pen.println("test3");
 		break;
 	    } // switch
 	} // while
-	pen.print("{");
+	
+	pen.print("First Implementation: {");
 	for (int i = 0; i < size; i++) {
 	    pen.print("\"" + flag[i] + "\"");
-	    if (i != size-1) {
+	    if (i != size - 1) {
 		pen.print(", ");
-	    }
+	    } // if
 	} // for
 	pen.println("}");
+
+	
+	/**
+	 * Implementation 2
+	 */
+	R = size - 1;
+	W = size - 1;
+	B = size - 1;
+	while (R <= W && W <= B && R > -1) {
+	    switch (flag[R]) {
+	    case "blue":
+		swap(flag, B, R);
+		B--;
+		if (B < W)
+		    W--;
+		if (W < R)
+		    R--;
+		break;
+	    case "white":
+		swap(flag, W, R);
+		W--;
+		if (W < R)
+		    R--;
+		break;
+	    case "red":
+		R--;
+		break;
+	    }// switch
+	}// while
+
+	pen.print("Second Implementation: {");
+	for (int i = 0; i < size; i++) {
+	    pen.print("\"" + flag[i] + "\"");
+	    if (i != size - 1) {
+		pen.print(", ");
+	    }// if
+	}// for
+	pen.println("}");
+
     } // main
 } // dutchFlag
